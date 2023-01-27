@@ -73,3 +73,32 @@ void MainWindow::on_pushButton_recieve_order_clicked()
     dialog_recive_order->setConnection(db);
 
 }
+
+void MainWindow::on_pushButton_stock_overview_clicked()
+{
+    dialog_stock_overview = new StockOverview(this);
+    dialog_stock_overview->setModal(true);
+    dialog_stock_overview->exec();
+    dialog_stock_overview->setConnection(db);
+}
+void MainWindow::on_pushButton_manage_stock_clicked()
+{
+    dialog_manage_stock = new ManageStock(this);
+    dialog_manage_stock->setModal(true);
+    dialog_manage_stock->exec();
+    dialog_manage_stock->setConnection(db);
+}
+void MainWindow::on_pushButton_create_customer_order_clicked()
+{
+    dialog_customer_order = new CustomerOrder(this);
+    dialog_customer_order->setModal(true);
+    dialog_customer_order->exec();
+    dialog_customer_order->setConnection(db);
+}
+void MainWindow::on_pushButton_commissioning_clicked()
+{
+    dialog_commissioning = new Commissioning(this);
+    dialog_commissioning->setModal(true);
+    dialog_commissioning->exec();
+    dialog_commissioning->setConnection(db);
+}

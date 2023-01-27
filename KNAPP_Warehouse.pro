@@ -10,20 +10,32 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    commissioning.cpp \
+    customerorder.cpp \
     main.cpp \
     mainwindow.cpp \
+    managestock.cpp \
     orderstock.cpp \
-    reciveorder.cpp
+    reciveorder.cpp \
+    stockoverview.cpp
 
 HEADERS += \
+    commissioning.h \
+    customerorder.h \
     mainwindow.h \
+    managestock.h \
     orderstock.h \
-    reciveorder.h
+    reciveorder.h \
+    stockoverview.h
 
 FORMS += \
+    commissioning.ui \
+    customerorder.ui \
     mainwindow.ui \
+    managestock.ui \
     orderstock.ui \
-    reciveorder.ui
+    reciveorder.ui \
+    stockoverview.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

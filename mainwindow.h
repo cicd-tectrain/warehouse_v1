@@ -11,6 +11,10 @@
 
 #include"OrderStock.h"
 #include"reciveorder.h"
+#include"stockoverview.h"
+#include"managestock.h"
+#include"customerorder.h"
+#include"commissioning.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -32,6 +36,11 @@ private slots:
     void on_pushButton_order_stock_clicked();
     void on_pushButton_recieve_order_clicked();
 
+    void on_pushButton_stock_overview_clicked();
+    void on_pushButton_manage_stock_clicked();
+    void on_pushButton_create_customer_order_clicked();
+    void on_pushButton_commissioning_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
@@ -39,5 +48,9 @@ private:
     QSqlTableModel* model_main;
     OrderStock* dialog_order_stock;
     ReciveOrder* dialog_recive_order;
+    StockOverview* dialog_stock_overview;
+    ManageStock* dialog_manage_stock;
+    CustomerOrder* dialog_customer_order;
+    Commissioning* dialog_commissioning;
 };
 #endif // MAINWINDOW_H

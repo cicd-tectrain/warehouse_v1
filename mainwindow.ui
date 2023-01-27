@@ -109,7 +109,7 @@
      <string>Recieve Order</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_order_stock_2">
+   <widget class="QPushButton" name="pushButton_commissioning">
     <property name="geometry">
      <rect>
       <x>50</x>

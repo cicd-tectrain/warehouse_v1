@@ -55,7 +55,7 @@ void ReciveOrder::show_order_io(int id)
 {
     QSqlTableModel* orders_io = new QSqlTableModel();
     orders_io->setTable("orders_io");
-    orders_io->setFilter(&"status = 10 AND orderID = " [ id]);
+    orders_io->setFilter("status = 10 AND orderID = " + QString::number(id));
     orders_io->select();
     ui->tableView_orders_io->setModel(orders_io);
     design(ui->tableView_orders_io);
@@ -66,7 +66,7 @@ void ReciveOrder::show_storage_object(int id)
 {
     QSqlTableModel* storage_object = new QSqlTableModel();
     storage_object->setTable("storage_object");
-    storage_object->setFilter(&"status = 10 AND order_ioID = " [ id]);
+    storage_object->setFilter("status = 10 AND order_ioID = " + QString::number(id));
     storage_object->select();
     ui->tableView_storage_object->setModel(storage_object);
     design(ui->tableView_storage_object);
@@ -128,26 +128,27 @@ void ReciveOrder::on_pushButton_confirm_storage_clicked()
     update_slot.bindValue(":slot_id", slot_id);
     if(!update_slot.exec())
     {
-        qDebug() << "FAIL updateing in slot";
+        qDebug() << "FAIL updating in slot";
         return;
     }
     update_storage_object.prepare("UPDATE storage_object "
                         "SET status = :status "
                         "WHERE storage_objectID = :storage_object_id");
     update_storage_object.bindValue(":status", 20);
-    update_storage_object.bindValue(":storage_objectID", storage_object_id);
+    update_storage_object.bindValue(":storage_object_id", storage_object_id);
     if(!update_storage_object.exec())
     {
-        qDebug() << "FAIL updateing in storage object";
+        qDebug() << "FAIL updating in storage object";
         return;
     }
 
     show_storage_object(orders_io_id);
+
     ui->tableView_slot->setModel(NULL);
 
     QSqlTableModel* storage_object = new QSqlTableModel();
     storage_object->setTable("storage_object");
-    storage_object->setFilter(&"status = 10 AND order_ioID = " [ orders_io_id]);
+    storage_object->setFilter("status = 10 AND order_ioID = " + QString::number(orders_io_id));
     storage_object->select();
 
     if(storage_object->rowCount() == 0)
@@ -168,7 +169,7 @@ void ReciveOrder::on_pushButton_confirm_storage_clicked()
 
         QSqlTableModel* orders_io = new QSqlTableModel();
         orders_io->setTable("orders_io");
-        orders_io->setFilter(&"status = 10 AND order_ioID = " [ orders_io_id]);
+        orders_io->setFilter("status = 10 AND order_ioID = " + QString::number(order_id));
         orders_io->select();
 
         if(orders_io->rowCount() == 0)

@@ -8,5 +8,4 @@ int main(int argc, char *argv[])
     MainWindow w;
     w.show();
     return a.exec();
-    //this is a comment from sylvesters pc
 }
