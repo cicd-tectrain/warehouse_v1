@@ -80,6 +80,17 @@ void MainWindow::on_pushButton_stock_overview_clicked()
     dialog_stock_overview->setModal(true);
     dialog_stock_overview->exec();
     dialog_stock_overview->setConnection(db);
+
+//    //combobox for filtering
+//    filterQuery_Produkt = new QSqlQueryModel();
+//    filterQuery_Produkt->setQuery("SELECT products.product_name FROM products");
+//    ui->comboBox_Produkt->setModel(filterQuery_Produkt);
+
+//    filterQuery_Platz = new QSqlQueryModel();
+//    filterQuery_Platz->setQuery("SELECT slots.slot_label FROM slots");
+//    ui->comboBox_Platz->setModel(filterQuery_Platz);
+
+
 }
 void MainWindow::on_pushButton_manage_stock_clicked()
 {

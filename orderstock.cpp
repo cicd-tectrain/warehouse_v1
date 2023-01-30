@@ -36,7 +36,7 @@ void OrderStock::show_incoming_orders()
 {
     QSqlTableModel* incoming_orders = new QSqlTableModel();
     incoming_orders->setTable("orders");
-    incoming_orders->setFilter("status = 10");
+    incoming_orders->setFilter("status_value = 10");
     incoming_orders->select();
     ui->tableView_incoming_orders->setModel(incoming_orders);
     design(ui->tableView_incoming_orders);
@@ -58,7 +58,7 @@ void OrderStock::on_pushButton_Close_clicked()
 void OrderStock::show_products()
 {
     QSqlTableModel* product = new QSqlTableModel();
-    product->setTable("product");
+    product->setTable("products");
     product->select();
     ui->tableView_products->setModel(product);
     design(ui->tableView_products);
@@ -123,12 +123,12 @@ void OrderStock::on_pushButton_add_product_clicked()
 void OrderStock::on_pushButton_finish_clicked()
 {
     QSqlQuery orders_insert;
-    orders_insert.prepare("INSERT INTO orders (orderID, clientID, order_date, status) "
-                          "VALUES (:orderid, :clientid, :orderdate, :status)");
+    orders_insert.prepare("INSERT INTO orders (orderID, clientID, order_date, status_value) "
+                          "VALUES (:orderid, :clientid, :orderdate, :status_value)");
     orders_insert.bindValue(":orderid", NULL);
     orders_insert.bindValue(":clientid", suplier_id);
     orders_insert.bindValue(":orderdate", QDateTime::currentDateTime());
-    orders_insert.bindValue(":status", 10);
+    orders_insert.bindValue(":status_value", 10);
     if (orders_insert.exec())
     {
         qDebug() << "Success inserting in order";
@@ -142,8 +142,8 @@ void OrderStock::on_pushButton_finish_clicked()
 
     for (int i = 0; i < ui->tableWidget_create_order->rowCount(); ++i) {
         QSqlQuery orders_io_insert;
-        orders_io_insert.prepare("INSERT INTO orders_io (orders_ioID, orderID, productID, amount_ordered, status)"
-                                 "VALUES (:orderioid, :orderid, :productid, :amount_ordered, :status)");
+        orders_io_insert.prepare("INSERT INTO orders_io (orders_ioID, orderID, productID, amount_ordered, status_value)"
+                                 "VALUES (:orderioid, :orderid, :productid, :amount_ordered, :status_value)");
         int product_id = ui->tableWidget_create_order->item(i,1)->text().toInt();
         double product_amount = ui->tableWidget_create_order->item(i,2)->text().toDouble();
 
@@ -151,7 +151,7 @@ void OrderStock::on_pushButton_finish_clicked()
         orders_io_insert.bindValue(":orderid", order_id);
         orders_io_insert.bindValue(":productid", product_id);
         orders_io_insert.bindValue(":amount_ordered", product_amount);
-        orders_io_insert.bindValue(":status", 10);
+        orders_io_insert.bindValue(":status_value", 10);
 
 
         if(orders_io_insert.exec())
@@ -174,7 +174,7 @@ void OrderStock::on_pushButton_finish_clicked()
 void OrderStock::create_storage_objects(int order_io_id, int product_id, double amount)
 {
     QSqlTableModel* bundle = new QSqlTableModel();
-    bundle->setTable("bundle");
+    bundle->setTable("bundles");
     bundle->setFilter("productID = " +  QString::number( product_id));
     bundle->select();
     double bundle_size = bundle->record(0).value("amount").toDouble();
@@ -187,12 +187,12 @@ void OrderStock::create_storage_objects(int order_io_id, int product_id, double 
         if(amount < 0)
             bundle_size = amount + bundle_size;
 
-        storage_object_insert.prepare("INSERT INTO storage_object (storage_objectID, order_ioID, amount, status)"
-                                 "VALUES (:storage_objectID, :order_ioID, :amount, :status)");
+        storage_object_insert.prepare("INSERT INTO storage_objects (storage_objectID, order_ioID, amount, status_value)"
+                                 "VALUES (:storage_objectID, :order_ioID, :amount, :status_value)");
         storage_object_insert.bindValue(":storage_objectID", NULL);
         storage_object_insert.bindValue(":order_ioID", order_io_id);
         storage_object_insert.bindValue(":amount", bundle_size);
-        storage_object_insert.bindValue(":status", 10);
+        storage_object_insert.bindValue(":status_value", 10);
         if(storage_object_insert.exec())
         {
             qDebug() << "Success inserting in storage_object";

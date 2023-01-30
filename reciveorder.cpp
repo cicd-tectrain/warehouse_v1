@@ -45,7 +45,7 @@ void ReciveOrder::show_orders()
 {
     QSqlTableModel* orders = new QSqlTableModel();
     orders->setTable("orders");
-    orders->setFilter("status = 10");
+    orders->setFilter("status_value = 10");
     orders->select();
     ui->tableView_orders->setModel(orders);
     design(ui->tableView_orders);
@@ -55,7 +55,7 @@ void ReciveOrder::show_order_io(int id)
 {
     QSqlTableModel* orders_io = new QSqlTableModel();
     orders_io->setTable("orders_io");
-    orders_io->setFilter("status = 10 AND orderID = " + QString::number(id));
+    orders_io->setFilter("status_value = 10 AND orderID = " + QString::number(id));
     orders_io->select();
     ui->tableView_orders_io->setModel(orders_io);
     design(ui->tableView_orders_io);
@@ -66,7 +66,7 @@ void ReciveOrder::show_storage_object(int id)
 {
     QSqlTableModel* storage_object = new QSqlTableModel();
     storage_object->setTable("storage_object");
-    storage_object->setFilter("status = 10 AND order_ioID = " + QString::number(id));
+    storage_object->setFilter("status_value = 10 AND order_ioID = " + QString::number(id));
     storage_object->select();
     ui->tableView_storage_object->setModel(storage_object);
     design(ui->tableView_storage_object);
@@ -121,7 +121,7 @@ void ReciveOrder::on_pushButton_confirm_storage_clicked()
 {
     QSqlQuery update_slot;
     QSqlQuery update_storage_object;
-    update_slot.prepare("UPDATE slot "
+    update_slot.prepare("UPDATE slots "
                         "SET storage_objectID = :storage_object_id "
                         "WHERE slotID = :slot_id");
     update_slot.bindValue(":storage_object_id", storage_object_id);
@@ -131,10 +131,10 @@ void ReciveOrder::on_pushButton_confirm_storage_clicked()
         qDebug() << "FAIL updating in slot";
         return;
     }
-    update_storage_object.prepare("UPDATE storage_object "
-                        "SET status = :status "
+    update_storage_object.prepare("UPDATE storage_objects "
+                        "SET status_value = :status_value "
                         "WHERE storage_objectID = :storage_object_id");
-    update_storage_object.bindValue(":status", 20);
+    update_storage_object.bindValue(":status_value", 20);
     update_storage_object.bindValue(":storage_object_id", storage_object_id);
     if(!update_storage_object.exec())
     {
@@ -147,21 +147,21 @@ void ReciveOrder::on_pushButton_confirm_storage_clicked()
     ui->tableView_slot->setModel(NULL);
 
     QSqlTableModel* storage_object = new QSqlTableModel();
-    storage_object->setTable("storage_object");
-    storage_object->setFilter("status = 10 AND order_ioID = " + QString::number(orders_io_id));
+    storage_object->setTable("storage_objects");
+    storage_object->setFilter("status_value = 10 AND order_ioID = " + QString::number(orders_io_id));
     storage_object->select();
 
     if(storage_object->rowCount() == 0)
     {
         QSqlQuery update_orders_io;
         update_orders_io.prepare("UPDATE orders_io "
-                            "SET status = :status "
+                            "SET status_value = :status_value "
                             "WHERE orders_ioID = :orders_io_id");
         update_orders_io.bindValue(":orders_io_id", orders_io_id);
-        update_orders_io.bindValue(":status", 20);
+        update_orders_io.bindValue(":status_value", 20);
         if(!update_orders_io.exec())
         {
-            qDebug() << "FAIL updateing in orders_io";
+            qDebug() << "FAIL updating in orders_io";
             return;
         }
 
@@ -169,20 +169,20 @@ void ReciveOrder::on_pushButton_confirm_storage_clicked()
 
         QSqlTableModel* orders_io = new QSqlTableModel();
         orders_io->setTable("orders_io");
-        orders_io->setFilter("status = 10 AND order_ioID = " + QString::number(order_id));
+        orders_io->setFilter("status_value = 10 AND order_ioID = " + QString::number(order_id));
         orders_io->select();
 
         if(orders_io->rowCount() == 0)
         {
             QSqlQuery update_orders;
             update_orders.prepare("UPDATE orders "
-                                "SET status = :status "
+                                "SET status_value = :status_value "
                                 "WHERE orderID = :order_id");
             update_orders.bindValue(":order_id", order_id);
-            update_orders.bindValue(":status", 20);
+            update_orders.bindValue(":status_value", 20);
             if(!update_orders.exec())
             {
-                qDebug() << "FAIL updateing in orders_io";
+                qDebug() << "FAIL updating in orders_io";
                 return;
             }
 

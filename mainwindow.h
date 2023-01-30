@@ -8,6 +8,9 @@
 #include<QDebug>
 #include<QTableView>
 #include <QSqlQuery>
+#include <QComboBox>
+#include<QSqlQueryModel>
+#include<QSqlTableModel>
 
 #include"OrderStock.h"
 #include"reciveorder.h"
@@ -30,7 +33,7 @@ public:
     ~MainWindow();
     void connection();
     void design(QTableView* table);
-    void show_main_window();
+    void show_main_window(); //show_Leser();
 
 private slots:
     void on_pushButton_order_stock_clicked();
@@ -45,12 +48,17 @@ private:
     Ui::MainWindow *ui;
     QSqlDatabase db;
     QMessageBox msgBox;
-    QSqlTableModel* model_main;
+    QSqlTableModel* model_main; //model_leser;
     OrderStock* dialog_order_stock;
     ReciveOrder* dialog_recive_order;
     StockOverview* dialog_stock_overview;
     ManageStock* dialog_manage_stock;
     CustomerOrder* dialog_customer_order;
     Commissioning* dialog_commissioning;
+    QSqlQueryModel* filterQuery_Produkt;
+    QSqlQueryModel* filterQuery_Platz;
+    QSqlTableModel* model_filterProdukt;
+    QSqlTableModel* model_filterPlatz;
+    QComboBox* comboBox_test;
 };
 #endif // MAINWINDOW_H
