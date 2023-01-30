@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Commissioning</class>
  <widget class="QDialog" name="Commissioning">
@@ -5,13 +6,105 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1078</width>
+    <height>617</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <widget class="QTableView" name="tableView_storage_object">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>310</y>
+     <width>441</width>
+     <height>192</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tableView_orders">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>30</y>
+     <width>351</width>
+     <height>192</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_select_order_io">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>230</y>
+     <width>101</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select order io</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_select_order">
+   <property name="geometry">
+    <rect>
+     <x>90</x>
+     <y>230</y>
+     <width>75</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select Order</string>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tableView_slot">
+   <property name="geometry">
+    <rect>
+     <x>610</x>
+     <y>310</y>
+     <width>311</width>
+     <height>121</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTableView" name="tableView_orders_io">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>30</y>
+     <width>401</width>
+     <height>192</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_confirm_commissioning">
+   <property name="geometry">
+    <rect>
+     <x>680</x>
+     <y>450</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Confirm object commissioning</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton_select_storage_object">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>510</y>
+     <width>131</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Select storage object</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
